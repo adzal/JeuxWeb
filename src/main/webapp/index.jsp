@@ -8,6 +8,6 @@
 </head>
 <body>
 <h1>Hello</h1>
-<a href="ListJeux">List all games</a>
+<a href="ListJeux?genres=all">List all games</a>
 </body>
 </html>

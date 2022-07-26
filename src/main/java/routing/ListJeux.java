@@ -35,25 +35,27 @@ public class ListJeux extends HttpServlet {
 			throws ServletException, IOException {
 		String page = "/showgames.jsp";
 		try {
-			Optional<String> genre = Optional.ofNullable(request.getParameter("genres"));
-			if (genre.isPresent()) {
-				if (genre.get().equals("new")) {
-					page = "NewGenre";
+			String genre = request.getParameter("genres");
+			if (genre == null) {
+				genre = "all";
+			}
+			if (genre.equals("new")) {
+				// TODO Add this servlet
+				page = "NewGenre";
+			} else {
+				List<Jeux> games;
+				if (genre.equals("all")) {
+					games = JeuxDAO.getAllJeux();
 				} else {
-					List<Jeux> games;
-					if (genre.get().equals("all")) {
-						games = JeuxDAO.getAllJeux();
-					} else {
-						Integer genreId = Integer.parseInt(genre.get());
-						games = JeuxDAO.getJeuxByGenreId(genreId);
-					}
-					request.setAttribute("games", games);
+					Integer genreId = Integer.parseInt(genre);
+					games = JeuxDAO.getJeuxByGenreId(genreId);
 
-					List<Genre> genres = GenreDAO.getAllGenres();
-					request.setAttribute("genres", genres);
-					
-					request.setAttribute("selected", genre.get());
+					request.setAttribute("selected", genre);
 				}
+				request.setAttribute("games", games);
+
+				List<Genre> genres = GenreDAO.getAllGenres();
+				request.setAttribute("genres", genres);
 			}
 		} catch (Exception e) {
 			page = "/error.jsp";
