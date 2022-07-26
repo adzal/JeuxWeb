@@ -37,9 +37,9 @@
 		<tbody>
 			<c:forEach var="game" items="${games}">
 				<tr>
-					<td>${game.titre}</td>
+					<td>${game.jeuxId}</td>
 					<td>${game.description}</td>
-					<td><a href="GamePage?jeuxID="${game.jeuxId}>${game.description}</a></td>
+					<td><a href="GamePage?jeuxId=${game.jeuxId}">${game.description}</a></td>
 				</tr>
 			</c:forEach>
 		</tbody>
