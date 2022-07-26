@@ -11,7 +11,11 @@
 <body>
 <div class="container bg-dark text-white">
 <h1>Hello</h1>
+
 <a href="ListJeux">List all games</a>
+
+<a href="ListJeux?genres=all">List all games</a>
+
 </div>
 </body>
 </html>

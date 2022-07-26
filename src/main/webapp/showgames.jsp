@@ -15,21 +15,20 @@
 <body>
 <div class="container bg-dark text-white">
 	<h1>All games</h1>
-	<label for="cars">Choose a Genre:</label>
-
+	<label for="genres">Choose a Genre:</label>
 	<form action="ListJeux" method="get">
 		<select name="genres" id="genres">
 			<option value="all">All Genre</option>
 			<c:forEach var="genre" items="${genres}">
-
 				<option value="${genre.genreId}"
 				<c:if test="${not empty selected and genre.genreId == selected}">
 					selected
 				</c:if>
-				>${genre.description}</option>
+				>${genre.description}</option>			
 			</c:forEach>
 			<option value="new">Add New Genre</option>
-		</select> <input type="submit" value="Submit">
+		</select> 
+		<input type="submit" value="Submit">
 	</form>
 
 	<table>
@@ -37,6 +36,7 @@
 			<tr>
 				<th>Title</th>
 				<th>Description</th>
+				<th>Details</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -44,6 +44,7 @@
 				<tr>
 					<td>${game.titre}</td>
 					<td>${game.description}</td>
+					<td><a href="GamePage?jeuxID="${game.jeuxId}>${game.description}</a></td>
 				</tr>
 			</c:forEach>
 		</tbody>
