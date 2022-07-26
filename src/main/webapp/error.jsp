@@ -7,7 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>Hello</h1>
-<a href="ListJeux">List all games</a>
+<h1>Ooops</h1>
 </body>
 </html>

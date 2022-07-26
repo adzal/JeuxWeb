@@ -10,7 +10,8 @@ public class Jeux {
 	private String connexion;
 	private String mode;
 	private int genreId;
-
+	private String genreDescription;
+	
 	public int getJeuxId() {
 		return jeuxId;
 	}
@@ -89,6 +90,14 @@ public class Jeux {
 				+ ", _JeuxPrix=" + prix + ", _JeuxDateSortie=" + dateSortie + ", _JeuxPaysOrigine="
 				+ paysOrigine + ", _JeuxConnexion=" + connexion + ", _JeuxMode=" + mode + ", _GenreId="
 				+ genreId + "]";
+	}
+
+	public String getGenreDescription() {
+		return genreDescription;
+	}
+
+	public void setGenreDescription(String genreDescription) {
+		this.genreDescription = genreDescription;
 	}
 
 }

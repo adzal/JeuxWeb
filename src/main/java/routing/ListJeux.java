@@ -1,11 +1,17 @@
 package routing;
 
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.List;
+
+import dataaccess.GenreDAO;
+import dataaccess.JeuxDAO;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import model.Genre;
+import model.Jeux;
 
 /**
  * Servlet implementation class ListJeux
@@ -25,8 +31,17 @@ public class ListJeux extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		String page = "/showgames.jsp";
+
+		try {
+			List<Genre> genres = GenreDAO.getAllGenres();
+			List<Jeux> games = JeuxDAO.getAllJeux();
+			request.setAttribute("genres", genres);
+			request.setAttribute("games", games);
+		} catch (SQLException e) {
+			 page = "/error.jsp";
+		}		
+		getServletContext().getRequestDispatcher(page).forward(request, response);
 	}
 
 	/**
