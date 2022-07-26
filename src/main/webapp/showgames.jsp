@@ -35,9 +35,6 @@
 			</tr>
 		</thead>
 		<tbody>
-
-
-
 			<c:forEach var="game" items="${games}">
 				<tr>
 					<td>${game.titre}</td>
