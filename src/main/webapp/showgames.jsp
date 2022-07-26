@@ -14,8 +14,14 @@
 
 	<form action="ListJeux" method="get">
 		<select name="genres" id="genres">
+			<option value="all">All Genre</option>
 			<c:forEach var="genre" items="${genres}">
-				<option value="${genre.titre}">${genre.description}</option>
+
+				<option value="${genre.genreId}"
+				<c:if test="${not empty selected and genre.genreId == selected}">
+					selected
+				</c:if>
+				>${genre.description}</option>
 			</c:forEach>
 			<option value="new">Add New Genre</option>
 		</select> <input type="submit" value="Submit">

@@ -57,11 +57,11 @@ public class JeuxDAO {
 		List<Jeux> jeuxList = new ArrayList<>();
 
 		String q = "SELECT Jeux_Id,Jeux_Titre,Jeux_Description,Jeux_Prix,Jeux_DateSortie,"
-				+ "Jeux_PaysOrigine,Jeux_Connexion,Jeux_Mode,Genre_Id,jeux.Genre_Id, "
+				+ "Jeux_PaysOrigine,Jeux_Connexion,Jeux_Mode,jeux.Genre_Id, "
 				+ "genre.genre_description as genre_desc "
 				+ "FROM jeux "
-				+ "inner join genre on genre.genre_id = jeux.genre_id"
-				+ "where Genre_Id = ?";
+				+ "inner join genre on genre.genre_id = jeux.genre_id "
+				+ "where jeux.Genre_Id = ?";
 
 		// try with resources PreparedStatement implements AutoCloseable
 		// ConnectionFactory c'est une usine qui donne une connection
