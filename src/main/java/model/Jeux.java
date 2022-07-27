@@ -8,7 +8,7 @@ public class Jeux {
 	private java.sql.Date dateSortie;
 	private String paysOrigine;
 	private String connexion;
-	private String mode;
+	private String jeuxMode;
 	private int genreId;
 	private String genreDescription;
 	
@@ -69,11 +69,11 @@ public class Jeux {
 	}
 
 	public String getJeuxMode() {
-		return mode;
+		return jeuxMode;
 	}
 
 	public void setMode(String mode) {
-		this.mode = mode;
+		this.jeuxMode = mode;
 	}
 
 	public int getGenreId() {
@@ -88,7 +88,7 @@ public class Jeux {
 	public String toString() {
 		return "Jeux [_JeuxId=" + jeuxId + ", _JeuxTitre=" + titre + ", _JeuxDescription=" + description
 				+ ", _JeuxPrix=" + prix + ", _JeuxDateSortie=" + dateSortie + ", _JeuxPaysOrigine="
-				+ paysOrigine + ", _JeuxConnexion=" + connexion + ", _JeuxMode=" + mode + ", _GenreId="
+				+ paysOrigine + ", _JeuxConnexion=" + connexion + ", _JeuxMode=" + jeuxMode + ", _GenreId="
 				+ genreId + "]";
 	}
 
