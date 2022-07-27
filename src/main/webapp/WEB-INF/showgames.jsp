@@ -52,7 +52,7 @@
 			<tbody>
 				<c:forEach var="game" items="${games}">
 					<tr>
-						<td>${game.jeuxId}</td>
+						<td>${game.titre}</td>
 						<td>${game.description}</td>
 						<td><a href="GamePage?jeuxId=${game.jeuxId}">${game.description}</a></td>
 					</tr>

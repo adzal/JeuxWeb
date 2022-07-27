@@ -24,7 +24,7 @@
 <p class="invalid">${message}</p>
 </c:if>
 
-  <form action="gameform" method="post">
+  <form action="GamePage" method="post">
   	<div class="row align-items-center">
 		<div class="col-12 col-md-3">Titre</div>
 		<div class="col-12 col-md-9">

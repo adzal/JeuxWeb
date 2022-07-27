@@ -11,6 +11,7 @@ public class Jeux {
 	private String jeuxMode;
 	private int genreId;
 	private String genreDescription;
+	private String plateformeDescription;
 	
 	public int getJeuxId() {
 		return jeuxId;
@@ -98,6 +99,14 @@ public class Jeux {
 
 	public void setGenreDescription(String genreDescription) {
 		this.genreDescription = genreDescription;
+	}
+
+	public String getPlateformeDescription() {
+		return plateformeDescription;
+	}
+
+	public void setPlateformeDescription(String plateformeDescription) {
+		this.plateformeDescription = plateformeDescription;
 	}
 
 }

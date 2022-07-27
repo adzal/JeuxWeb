@@ -15,18 +15,20 @@ public class JeuxDAO {
 	public static List<Jeux> getAllJeux() throws SQLException {
 		return getJeux(Optional.empty(), Optional.empty());
 	}
+
 	public static Jeux getJeuxbyJeuxId(Integer jeuxId) throws SQLException {
 		Optional<String> whereClause = Optional.ofNullable("where jeux.Jeux_Id = ?");
 		return getJeux(whereClause, Optional.ofNullable(jeuxId))
 				.stream()
 				.findAny()
-				.get();				
+				.get();
 	}
+
 	public static List<Jeux> getJeuxByGenreId(int genreId) throws SQLException {
 		Optional<String> whereClause = Optional.ofNullable("where jeux.Genre_Id = ?");
 		return getJeux(whereClause, Optional.ofNullable(genreId));
 	}
-	
+
 	private static List<Jeux> getJeux(Optional<String> whereClause, Optional<Integer> id) throws SQLException {
 		List<Jeux> jeuxList = new ArrayList<>();
 
@@ -35,11 +37,11 @@ public class JeuxDAO {
 				+ "genre.genre_description as genre_desc "
 				+ "FROM jeux "
 				+ "inner join genre on genre.genre_id = jeux.genre_id ";
-		
+
 		if (whereClause.isPresent()) {
 			q += whereClause.get();
 		}
-		
+
 		// try with resources PreparedStatement implements AutoCloseable
 		// ConnectionFactory c'est une usine qui donne une connection
 		// PreparedStatement plus securisé que statement normal (pas de SQL injection)
@@ -122,6 +124,27 @@ public class JeuxDAO {
 		try (Connection connection = ConnectionFactory.getInstance().getConnection();
 				PreparedStatement p = connection.prepareStatement(q)) {
 			p.setInt(1, jeuxId);
+			p.execute();
+		}
+	}
+
+	public void updateJeux(Jeux jeux) throws SQLException {
+		String q = "update jeux set jeux_titre = ?,"
+				+ "jeux_description=?,"
+				+ "jeux_paysorigine=?,"
+				+ "jeux_connexion=?,"
+				+ "jeux_mode=? "
+				+ "where jeux_id = ?";
+
+		try (Connection connection = ConnectionFactory.getInstance().getConnection();
+				PreparedStatement p = connection.prepareStatement(q)) {
+			p.setString(1, jeux.getTitre());
+			p.setString(2, jeux.getDescription());
+			p.setString(3, jeux.getPaysOrigine());
+			p.setString(4, jeux.getConnexion());
+			p.setString(5, jeux.getJeuxMode());
+			p.setInt(6, jeux.getJeuxId());
+
 			p.execute();
 		}
 	}

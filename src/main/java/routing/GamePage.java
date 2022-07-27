@@ -1,6 +1,10 @@
 package routing;
 
 import java.io.IOException;
+import java.sql.Date;
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
+import java.time.LocalDate;
 import java.util.List;
 
 import dataaccess.GenreDAO;
@@ -9,6 +13,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import model.Genre;
 import model.Jeux;
 
@@ -38,7 +43,10 @@ public class GamePage extends HttpServlet {
 			List<Genre> genres = GenreDAO.getAllGenres();
 			request.setAttribute("genres", genres);
 			Jeux jeux = JeuxDAO.getJeuxbyJeuxId(Integer.parseInt(jeuxId));
-			request.setAttribute("jeux", jeux);
+
+			HttpSession session = request.getSession();
+			session.setAttribute("jeux", jeux);
+
 			getServletContext().getRequestDispatcher("/WEB-INF/gamepage.jsp").forward(request, response);
 		} catch (Exception e) {
 			getServletContext().getRequestDispatcher("/error.jsp").forward(request, response);
@@ -51,8 +59,46 @@ public class GamePage extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
 
+		HttpSession session = request.getSession();
+
+		Jeux jeux = (Jeux) session.getAttribute("jeux");
+
+		jeux.setTitre(request.getParameter("titre"));
+		jeux.setDescription(request.getParameter("description"));
+		double prix = Double.parseDouble(request.getParameter("prix"));
+		jeux.setPrix(prix);
+
+		LocalDate dateSortie = LocalDate.parse(request.getParameter("dateSortie"));
+		Date date = Date.valueOf(dateSortie);
+		jeux.setDateSortie(date);
+
+		jeux.setPaysOrigine(request.getParameter("paysOrigine"));
+		jeux.setConnexion(request.getParameter("connexion"));
+		jeux.setMode(request.getParameter("mode"));
+		int genreId = Integer.parseInt(request.getParameter("genres"));
+		jeux.setGenreId(genreId);
+
+		JeuxDAO dao = new JeuxDAO();
+		String message = "";
+		if (jeux.getTitre().isBlank() ||
+				jeux.getDescription().isBlank()) {
+			message = "You must fill in all fields.";
+		} else {
+			try {
+				if (jeux.getJeuxId() == 0) {
+					dao.insertJeux(jeux);
+					message = "Game added.";
+				} else {
+					dao.updateJeux(jeux);
+					message = "Game updated.";
+				}
+			} catch (SQLException e) {
+				message = "There was an error.";
+			}
+		}
+		session.setAttribute("Jeux", jeux);
+		request.setAttribute("message", message);
+		getServletContext().getRequestDispatcher("/WEB-INF/gamepage.jsp").forward(request, response);
+	}
 }

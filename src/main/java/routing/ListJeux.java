@@ -10,6 +10,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import model.Genre;
 import model.Jeux;
 
@@ -55,7 +56,8 @@ public class ListJeux extends HttpServlet {
 				request.setAttribute("games", games);
 
 				List<Genre> genres = GenreDAO.getAllGenres();
-				request.setAttribute("genres", genres);
+				HttpSession session = request.getSession();
+				session.setAttribute("genres", genres);
 			}
 		} catch (Exception e) {
 			page = "/error.jsp";
