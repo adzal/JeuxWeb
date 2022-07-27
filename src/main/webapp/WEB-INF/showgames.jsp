@@ -22,9 +22,9 @@
 <div class="container bg-light border">	
 	<h1>All games</h1>
 	<div class="row">			
-		<label for="genres">Choose a Genre:</label>
 				
 		<form action="ListJeux" method="get">
+			<label for="genres">Choose a Genre:</label>
 			<select name="genres" id="genres">
 				<option value="all">All Genre</option>
 				<c:forEach var="genre" items="${genres}">
@@ -36,6 +36,20 @@
 				</c:forEach>
 				<option value="new">Add New Genre</option>
 			</select> 
+			
+			<label for="plateformes">Choose a plateforme:</label>
+			<select name="plateformes" id="plateformes">
+				<option value="all">All Plateformes</option>
+				<c:forEach var="plateforme" items="${plateformes}">
+				<option value="${plateforme.plateformeId}"
+					<c:if test="${not empty selectedPlateforme and plateforme.plateformeId == selectedPlateforme}">
+					selected
+					</c:if>
+					>${plateforme.nom}</option>			
+				</c:forEach>
+				<option value="new">Add New Plateforme</option>
+			</select> 			
+			
 			<input type="submit" value="Submit">
 		</form>
 	</div>
@@ -46,15 +60,17 @@
 				<tr>
 					<th>Title</th>
 					<th>Description</th>
-					<th>Details</th>
+					<th>Genre</th>
+					<th>Plateforme</th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach var="game" items="${games}">
 					<tr>
-						<td>${game.titre}</td>
+						<td><a href="GamePage?jeuxId=${game.jeuxId}">${game.titre}</a></td>
 						<td>${game.description}</td>
-						<td><a href="GamePage?jeuxId=${game.jeuxId}">${game.description}</a></td>
+						<td>${game.genreDescription}</td>
+						<td>${game.plateformeNom}</td>
 					</tr>
 				</c:forEach>
 			</tbody>
