@@ -6,6 +6,7 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Bootstrap CSS -->
+<link rel="stylesheet" href="style.css" type="text/css" media="screen" />
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -18,7 +19,7 @@
 <body>
 
 
-<div class="container bg-light border">	
+<div class="container bg-dark text-white">	
 <h2>Game Page</h2>
 <c:if test="${not empty message}">
 <p class="invalid">${message}</p>
