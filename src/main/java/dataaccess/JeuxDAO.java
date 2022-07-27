@@ -13,12 +13,12 @@ import model.Jeux;
 
 public class JeuxDAO {
 	public static List<Jeux> getAllJeux() throws SQLException {
-		return getJeux(Optional.empty(), Optional.empty());
+		return getJeux(Optional.empty(), Optional.empty(), Optional.empty());
 	}
 
 	public static Jeux getJeuxbyJeuxId(Integer jeuxId) throws SQLException {
 		Optional<String> whereClause = Optional.ofNullable("where jeux.Jeux_Id = ?");
-		return getJeux(whereClause, Optional.ofNullable(jeuxId))
+		return getJeux(whereClause, Optional.ofNullable(jeuxId), Optional.empty())
 				.stream()
 				.findAny()
 				.get();
@@ -26,17 +26,34 @@ public class JeuxDAO {
 
 	public static List<Jeux> getJeuxByGenreId(int genreId) throws SQLException {
 		Optional<String> whereClause = Optional.ofNullable("where jeux.Genre_Id = ?");
-		return getJeux(whereClause, Optional.ofNullable(genreId));
+		return getJeux(whereClause, Optional.ofNullable(genreId), Optional.empty());
 	}
 
-	private static List<Jeux> getJeux(Optional<String> whereClause, Optional<Integer> id) throws SQLException {
+	public static List<Jeux> getJeuxByPlateformeId(int PlateformeId) throws SQLException {
+		Optional<String> whereClause = Optional.ofNullable("where jeuxplateforme.Plateforme_Id = ?");
+		return getJeux(whereClause, Optional.empty(), Optional.ofNullable(PlateformeId));
+	}
+
+	public static List<Jeux> getJeuxByGenreAndPlateforme(int genreId, int PlateformeId) throws SQLException {
+		Optional<String> whereClause = Optional.ofNullable("where jeux.Genre_Id = ? "
+				+ "and jeuxplateforme.Plateforme_Id = ?");
+		return getJeux(whereClause, Optional.ofNullable(genreId), Optional.ofNullable(PlateformeId));
+	}
+
+	private static List<Jeux> getJeux(
+			Optional<String> whereClause,
+			Optional<Integer> id,
+			Optional<Integer> plateformeId) throws SQLException {
 		List<Jeux> jeuxList = new ArrayList<>();
 
-		String q = "SELECT Jeux_Id,Jeux_Titre,Jeux_Description,Jeux_Prix,Jeux_DateSortie,"
+		String q = "SELECT jeux.Jeux_Id,Jeux_Titre,Jeux_Description,Jeux_Prix,Jeux_DateSortie,"
 				+ "Jeux_PaysOrigine,Jeux_Connexion,Jeux_Mode,jeux.Genre_Id, "
-				+ "genre.genre_description as genre_desc "
+				+ "genre.genre_description,"
+				+ "plateforme.plateforme_nom  "
 				+ "FROM jeux "
-				+ "inner join genre on genre.genre_id = jeux.genre_id ";
+				+ "inner join genre on genre.genre_id = jeux.genre_id "
+				+ "inner join jeuxplateforme on jeux.Jeux_Id = jeuxplateforme.Jeux_Id "
+				+ "inner join plateforme on plateforme.Plateforme_Id = jeuxplateforme.Plateforme_Id ";
 
 		if (whereClause.isPresent()) {
 			q += whereClause.get();
@@ -50,6 +67,13 @@ public class JeuxDAO {
 				PreparedStatement p = connection.prepareStatement(q)) {
 			if (id.isPresent()) {
 				p.setInt(1, id.get());
+				if (plateformeId.isPresent()) {
+					p.setInt(2, plateformeId.get());
+				}
+			} else {
+				if (plateformeId.isPresent()) {
+					p.setInt(1, plateformeId.get());
+				}
 			}
 			// execute the query, and get a java resultset
 			try (ResultSet rs = p.executeQuery()) {
@@ -67,7 +91,8 @@ public class JeuxDAO {
 					jeux.setConnexion(rs.getString("jeux_connexion"));
 					jeux.setMode(rs.getString("jeux_mode"));
 					jeux.setGenreId(rs.getInt("genre_id"));
-					jeux.setGenreDescription(rs.getString("genre_desc"));
+					jeux.setGenreDescription(rs.getString("genre_description"));
+					jeux.setPlateformeNom(rs.getString("plateforme_nom"));
 
 					jeuxList.add(jeux);
 				}
