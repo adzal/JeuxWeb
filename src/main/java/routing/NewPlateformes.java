@@ -45,18 +45,19 @@ public class NewPlateformes extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String message = "";
-		Plateforme Plateforme = new Plateforme();
-		Plateforme.setNom(request.getParameter("nom"));
-		Plateforme.setDescription(request.getParameter("description"));
+		Plateforme plateforme = new Plateforme();
+		plateforme.setNom(request.getParameter("nom"));
+		plateforme.setDescription(request.getParameter("description"));
 
 		try {
-			PlateformeDAO.insertPlateforme(Plateforme);
+			PlateformeDAO.insertPlateforme(plateforme);
 			message = "plateforme created";
 		} catch (SQLException e) {
 			message = "Enter a new plateforme nom.";
 		}
 
 		request.setAttribute("message", message);
+		request.setAttribute("plateforme", plateforme);
 		getServletContext().getRequestDispatcher("/WEB-INF/newplateforme.jsp").forward(request, response);
 	}
 }

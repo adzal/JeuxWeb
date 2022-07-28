@@ -55,6 +55,8 @@ public class NewGenre extends HttpServlet {
 		}
 
 		request.setAttribute("message", message);
+
+		request.setAttribute("genre", genre);
 		getServletContext().getRequestDispatcher("/WEB-INF/newgenre.jsp").forward(request, response);
 	}
 }
