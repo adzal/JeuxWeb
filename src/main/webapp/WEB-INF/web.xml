@@ -27,4 +27,24 @@
     <servlet-name>GamePage</servlet-name>
     <url-pattern>/GamePage</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>NewGenre</display-name>
+    <servlet-name>NewGenre</servlet-name>
+    <servlet-class>routing.NewGenre</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>NewGenre</servlet-name>
+    <url-pattern>/NewGenre</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>NewPlateformes</display-name>
+    <servlet-name>NewPlateformes</servlet-name>
+    <servlet-class>routing.NewPlateformes</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>NewPlateformes</servlet-name>
+    <url-pattern>/NewPlateformes</url-pattern>
+  </servlet-mapping>
 </web-app>

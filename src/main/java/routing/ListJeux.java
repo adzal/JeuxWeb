@@ -50,8 +50,7 @@ public class ListJeux extends HttpServlet {
 			} else if (genre.get().equals("all")) {
 				genreId = 0;
 			} else if (genre.get().equals("new")) {
-				// TODO Add this servlet
-				page = "NewGenre";
+				page = "/NewGenre";
 				getServletContext().getRequestDispatcher(page).forward(request, response);
 				return;
 			} else {
@@ -64,7 +63,7 @@ public class ListJeux extends HttpServlet {
 				plateformeId = 0;
 			} else if (plateformes.get().equals("new")) {
 				// TODO Add this servlet
-				page = "NewPlateformes";
+				page = "/NewPlateformes";
 				getServletContext().getRequestDispatcher(page).forward(request, response);
 				return;
 			} else {

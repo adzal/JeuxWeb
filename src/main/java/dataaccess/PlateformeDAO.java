@@ -63,15 +63,14 @@ public class PlateformeDAO {
 		return PlateformeList;
 	}
 
-	public void insertPlateforme(Plateforme Plateforme) throws SQLException {
-		String q = "insert Plateforme values(null,?,?,?,?,?,?,?,?)";
+	public static void insertPlateforme(Plateforme Plateforme) throws SQLException {
+		String q = "insert Plateforme values(null,?,?)";
 
 		try (Connection connection = ConnectionFactory.getInstance().getConnection();
 				PreparedStatement p = connection.prepareStatement(q, Statement.RETURN_GENERATED_KEYS)) {
 
-			p.setLong(1, Plateforme.getPlateformeId());
-			p.setString(2, Plateforme.getNom());
-			p.setString(3, Plateforme.getDescription());
+			p.setString(1, Plateforme.getNom());
+			p.setString(2, Plateforme.getDescription());
 
 			int affectedRows = p.executeUpdate();
 

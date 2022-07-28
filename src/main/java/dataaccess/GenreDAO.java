@@ -16,10 +16,10 @@ public class GenreDAO {
 
 		String q = "SELECT Genre_Id, genre_titre, genre_description "
 				+ "FROM Genre";
-				
+
 		try (Connection connection = ConnectionFactory.getInstance().getConnection();
 				PreparedStatement p = connection.prepareStatement(q)) {
-			
+
 			// execute the query, and get a java resultset
 			try (ResultSet rs = p.executeQuery()) {
 
@@ -30,7 +30,7 @@ public class GenreDAO {
 					Genre.setGenreId(rs.getInt("Genre_Id"));
 					Genre.setTitre(rs.getString("Genre_titre"));
 					Genre.setDescription(rs.getString("Genre_description"));
-					
+
 					GenreList.add(Genre);
 				}
 			}
@@ -51,14 +51,13 @@ public class GenreDAO {
 		}
 	}
 
-	public void insertGenre(Genre Genre) throws SQLException {
-		String q = "insert Genre values(null,?,?,?)";
+	public static void insertGenre(Genre Genre) throws SQLException {
+		String q = "insert Genre values(null,?,?)";
 
 		try (Connection connection = ConnectionFactory.getInstance().getConnection();
 				PreparedStatement p = connection.prepareStatement(q, Statement.RETURN_GENERATED_KEYS)) {
 			p.setString(1, Genre.getTitre());
 			p.setString(2, Genre.getDescription());
-			p.setInt(3, Genre.getGenreId());
 			int affectedRows = p.executeUpdate();
 
 			if (affectedRows == 0) {
