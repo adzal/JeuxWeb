@@ -14,7 +14,10 @@
 </head>
 <body>
 <div class="container bg-dark text-white" id="show">
-<h1>Oo00ps</h1>
+<h1 class="titre">Oo00ps</h1>
+	
+			<a class="btn btn-primary mt-3" href="ListJeux">Retour</a>
+		
 </div>
 </body>
 </html>

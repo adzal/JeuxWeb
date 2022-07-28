@@ -13,13 +13,13 @@
 	crossorigin="anonymous">
 
 <meta charset="UTF-8">
-<title>New genre</title>
+<title>Genre Jeu</title>
 </head>
 <body>
 
 
 <div class="container bg-dark text-white">	
-<h2>Genre Page</h2>
+<h2>Genre</h2>
 <c:if test="${not empty message}">
 <p class="invalid">${message}</p>
 </c:if>
@@ -43,8 +43,11 @@
 	</div>
 	
    	<div class="row align-items-center">
-		<div class="col-12 col-md-9 offset-md-3">		
-			<button type="sumbit" class="btn btn-primary mt-3">Update Genre</button>
+		<div class="col-12 col-md-5 offset-md-3">		
+			<button type="submit" class="btn btn-primary mt-3">Add/Update</button>
+		</div>
+		<div class="col-12 col-md-4">		
+			<a class="btn btn-primary mt-3" href="ListJeux">Retour</a>
 		</div>
 	</div>
   </form>

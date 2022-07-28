@@ -19,14 +19,14 @@
 
 
 <div class="container bg-dark text-white">	
-<h2>Plateforme Page</h2>
+<h2>Plateforme</h2>
 <c:if test="${not empty message}">
 <p class="invalid">${message}</p>
 </c:if>
 
   <form action="NewPlateformes" method="post">
   	<div class="row align-items-center">
-		<div class="col-12 col-md-3">nom</div>
+		<div class="col-12 col-md-3">Nom</div>
 		<div class="col-12 col-md-9">
 		<input type="text" class="form-control" id="nom"
 			placeholder="Saisi nom" name="nom"
@@ -43,8 +43,11 @@
 	</div>
 	
    	<div class="row align-items-center">
-		<div class="col-12 col-md-9 offset-md-3">		
-			<button type="sumbit" class="btn btn-primary mt-3">Update Plateforme</button>
+		<div class="col-12 col-md-5 offset-md-3">		
+			<button type="submit" class="btn btn-primary mt-3">Add/Update</button>
+		</div>
+		<div class="col-12 col-md-4">		
+			<a class="btn btn-primary mt-3" href="ListJeux">Retour</a>
 		</div>
 	</div>
   </form>
