@@ -13,7 +13,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<div class="container bg-dark text-white">
+<div class="container bg-dark text-white" id="show">
 <h1>Ooops</h1>
 </div>
 </body>

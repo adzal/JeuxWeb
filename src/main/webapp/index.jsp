@@ -13,7 +13,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<div class="container bg-dark text-white">
+<div class="container bg-dark text-white" id="show">
 <h1>Hello</h1>
 <a href="ListJeux">List all games</a>
 </div>
