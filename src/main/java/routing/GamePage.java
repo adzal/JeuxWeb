@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import dataaccess.GenreDAO;
 import dataaccess.JeuxDAO;
@@ -46,7 +47,7 @@ public class GamePage extends HttpServlet {
 			HttpSession session = request.getSession();
 			session.setAttribute("jeux", jeux);
 			session.setAttribute("plateformes", PlateformeDAO.getJeuxPlateformes(jeux.getJeuxId()));
-			
+
 			getServletContext().getRequestDispatcher("/WEB-INF/gamepage.jsp").forward(request, response);
 		} catch (Exception e) {
 			getServletContext().getRequestDispatcher("/error.jsp").forward(request, response);
@@ -77,13 +78,15 @@ public class GamePage extends HttpServlet {
 		int genreId = Integer.parseInt(request.getParameter("genres"));
 		jeux.setGenreId(genreId);
 
-		JeuxDAO dao = new JeuxDAO();
 		String message = "";
-		if (jeux.getTitre().isBlank() ||
-				jeux.getDescription().isBlank()) {
-			message = "You must fill in all fields.";
-		} else {
-			try {
+		JeuxDAO dao = new JeuxDAO();
+		try {
+
+			if (jeux.getTitre().isBlank() ||
+					jeux.getDescription().isBlank()) {
+				message = "You must fill in all fields.";
+			} else {
+
 				if (jeux.getJeuxId() == 0) {
 					dao.insertJeux(jeux);
 					message = "Game added.";
@@ -91,11 +94,20 @@ public class GamePage extends HttpServlet {
 					dao.updateJeux(jeux);
 					message = "Game updated.";
 				}
-			} catch (SQLException e) {
-				message = "There was an error.";
+
+				String[] plateformes = request.getParameterValues("plateformes");
+				dao.clearPlateformes(jeux.getJeuxId());
+				if (plateformes != null) {
+					dao.UpdatePlateforms(jeux.getJeuxId(), plateformes);
+				}
+				
+				session.setAttribute("plateformes", PlateformeDAO.getJeuxPlateformes(jeux.getJeuxId()));
 			}
+		} catch (SQLException e) {
+			message = "There was an error.";
 		}
-		request.setAttribute("Jeux", jeux);
+		session.setAttribute("jeux", jeux);
+
 		request.setAttribute("message", message);
 		getServletContext().getRequestDispatcher("/WEB-INF/gamepage.jsp").forward(request, response);
 	}

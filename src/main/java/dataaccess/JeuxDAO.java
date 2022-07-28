@@ -175,4 +175,28 @@ public class JeuxDAO {
 			p.execute();
 		}
 	}
+
+	public void clearPlateformes(int jeuxId) throws SQLException {
+		String q = "Delete from jeuxplateforme where jeux_id = ?";
+
+		try (Connection connection = ConnectionFactory.getInstance().getConnection();
+				PreparedStatement p = connection.prepareStatement(q)) {
+			p.setInt(1, jeuxId);
+			p.execute();
+		}
+	}
+
+	public void UpdatePlateforms(int jeuxId, String[] plateformes) throws SQLException {
+		for (String string : plateformes) {
+			String q = "insert jeuxplateforme(jeux_id, plateforme_id) values(?,?)";
+
+			try (Connection connection = ConnectionFactory.getInstance().getConnection();
+					PreparedStatement p = connection.prepareStatement(q)) {
+				p.setInt(1, jeuxId);
+				int plateforme_id = Integer.parseInt(string);
+				p.setInt(2, plateforme_id);
+				p.execute();
+			}
+		}
+	}
 }
