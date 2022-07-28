@@ -50,11 +50,14 @@
 				</c:forEach>
 				<option value="new">Ajouter une plateforme</option>
 			</select> 			
-			
+		
 			<input type="submit" value="Envoyer">
 		</form>
+					
 	</div>
-
+	<div class="row">
+		<a href="GamePage">Create new game</a>
+	</div>
 	<div class="row">
 		<table>
 			<thead>

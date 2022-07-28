@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Optional;
 
 import dataaccess.GenreDAO;
 import dataaccess.JeuxDAO;
@@ -15,7 +13,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import model.Genre;
 import model.Jeux;
 
 /**
@@ -41,9 +38,15 @@ public class GamePage extends HttpServlet {
 
 		try {
 			String jeuxId = request.getParameter("jeuxId");
-			List<Genre> genres = GenreDAO.getAllGenres();
-			request.setAttribute("genres", genres);
-			Jeux jeux = JeuxDAO.getJeuxbyJeuxId(Integer.parseInt(jeuxId));
+
+			Jeux jeux = null;
+			if (jeuxId == null) {
+				jeux = new Jeux();
+			} else {
+				jeux = JeuxDAO.getJeuxbyJeuxId(Integer.parseInt(jeuxId));
+			}
+			request.setAttribute("genres", GenreDAO.getAllGenres());
+
 			HttpSession session = request.getSession();
 			session.setAttribute("jeux", jeux);
 			session.setAttribute("plateformes", PlateformeDAO.getJeuxPlateformes(jeux.getJeuxId()));
@@ -60,17 +63,13 @@ public class GamePage extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		String message = "";
+
 		HttpSession session = request.getSession();
 		Jeux jeux = (Jeux) session.getAttribute("jeux");
 
 		jeux.setTitre(request.getParameter("titre"));
 		jeux.setDescription(request.getParameter("description"));
-		double prix = Double.parseDouble(request.getParameter("prix"));
-		jeux.setPrix(prix);
-
-		LocalDate dateSortie = LocalDate.parse(request.getParameter("dateSortie"));
-		Date date = Date.valueOf(dateSortie);
-		jeux.setDateSortie(date);
 
 		jeux.setPaysOrigine(request.getParameter("paysOrigine"));
 		jeux.setConnexion(request.getParameter("connexion"));
@@ -78,15 +77,28 @@ public class GamePage extends HttpServlet {
 		int genreId = Integer.parseInt(request.getParameter("genres"));
 		jeux.setGenreId(genreId);
 
-		String message = "";
-		JeuxDAO dao = new JeuxDAO();
 		try {
+			double prix = Double.parseDouble(request.getParameter("prix"));
+			jeux.setPrix(prix);
+		} catch (NumberFormatException e) {
+			message = "Please enter a valid price";
+		}
 
-			if (jeux.getTitre().isBlank() ||
-					jeux.getDescription().isBlank()) {
-				message = "You must fill in all fields.";
-			} else {
+		try {
+			LocalDate dateSortie = LocalDate.parse(request.getParameter("dateSortie"));
+			Date date = Date.valueOf(dateSortie);
+			jeux.setDateSortie(date);
+		} catch (java.time.format.DateTimeParseException e) {
+			message = "Please enter a date in yyyy-mm-dd format";
+		}
 
+		JeuxDAO dao = new JeuxDAO();
+
+		if (jeux.getTitre().isBlank() ||
+				jeux.getDescription().isBlank()) {
+			message = "You must fill in all fields.";
+		} else {
+			try {
 				if (jeux.getJeuxId() == 0) {
 					dao.insertJeux(jeux);
 					message = "Game added.";
@@ -100,11 +112,10 @@ public class GamePage extends HttpServlet {
 				if (plateformes != null) {
 					dao.UpdatePlateforms(jeux.getJeuxId(), plateformes);
 				}
-				
 				session.setAttribute("plateformes", PlateformeDAO.getJeuxPlateformes(jeux.getJeuxId()));
+			} catch (SQLException e) {
+				message = "There was an error.";
 			}
-		} catch (SQLException e) {
-			message = "There was an error.";
 		}
 		session.setAttribute("jeux", jeux);
 
