@@ -20,7 +20,7 @@
 <body>
 
 <div class="container bg-light border">	
-	<h1>All games</h1>
+	<h1>Show games</h1>
 	<div class="row">			
 				
 		<form action="ListJeux" method="get">

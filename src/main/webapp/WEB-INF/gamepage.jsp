@@ -102,10 +102,25 @@
 			</c:forEach>
 			</select> 
 		</div>		
+	</div>		
+	
+	<div class="row align-items-center">
+		<div class="col-12 col-md-3">Plateformes</div>
+		<div class="col-12 col-md-9">	
+		<fieldset>
+			<c:forEach var="plateforme" items="${plateformes}">		 
+		      <input type="checkbox" id="scales${plateforme.plateformeId}" name="scales${plateforme.plateformeId}"
+		        <c:if test="${plateforme.checked}">
+					checked
+				</c:if>>
+		      <label for="scales${plateforme.plateformeId}">${plateforme.nom}</label>
+		    </c:forEach>
+		</fieldset>
+
+		</div>		
 	</div>	
 
-  
-  	<div class="row align-items-center">
+   	<div class="row align-items-center">
 		<div class="col-12 col-md-9 offset-md-3">		
 			<button type="sumbit" class="btn btn-primary mt-3">Update Game</button>
 		</div>
