@@ -10,11 +10,11 @@
 	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
 	crossorigin="anonymous">
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Erreur</title>
 </head>
 <body>
 <div class="container bg-dark text-white" id="show">
-<h1>Ooops</h1>
+<h1>Oo00ps</h1>
 </div>
 </body>
 </html>

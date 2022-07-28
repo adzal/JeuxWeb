@@ -21,13 +21,13 @@
 <body>
 
 <div class="container bg-dark text-white">	
-	<h1>All games</h1>
+	<h1 class="titre">Liste des jeux</h1>
 	<div class="row">			
 				
 		<form action="ListJeux" method="get">
-			<label for="genres">Choose a Genre:</label>
+			<label for="genres">Choisir un genre : </label>
 			<select name="genres" id="genres">
-				<option value="all">All Genre</option>
+				<option value="all">Tout les genres</option>
 				<c:forEach var="genre" items="${genres}">
 					<option value="${genre.genreId}"
 					<c:if test="${not empty selected and genre.genreId == selected}">
@@ -35,12 +35,12 @@
 					</c:if>
 					>${genre.description}</option>			
 				</c:forEach>
-				<option value="new">Add New Genre</option>
+				<option value="new">Ajouter une genre</option>
 			</select> 
 			
-			<label for="plateformes">Choose a plateforme:</label>
+			<label for="plateformes">Choisir une plateforme : </label>
 			<select name="plateformes" id="plateformes">
-				<option value="all">All Plateformes</option>
+				<option value="all">Toutes les plateformes</option>
 				<c:forEach var="plateforme" items="${plateformes}">
 				<option value="${plateforme.plateformeId}"
 					<c:if test="${not empty selectedPlateforme and plateforme.plateformeId == selectedPlateforme}">
@@ -48,10 +48,10 @@
 					</c:if>
 					>${plateforme.nom}</option>			
 				</c:forEach>
-				<option value="new">Add New Plateforme</option>
+				<option value="new">Ajouter une plateforme</option>
 			</select> 			
 			
-			<input type="submit" value="Submit">
+			<input type="submit" value="Envoyer">
 		</form>
 	</div>
 
@@ -59,7 +59,7 @@
 		<table>
 			<thead>
 				<tr>
-					<th>Title</th>
+					<th>Titre</th>
 					<th>Description</th>
 					<th>Genre</th>
 					<th>Plateforme</th>
