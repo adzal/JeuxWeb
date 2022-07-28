@@ -56,7 +56,7 @@
 		<div class="col-12 col-md-4">Date de sortie</div>
 		<div class="col-12 col-md-8">	
 		<input type="text" id="dateSortie" name="dateSortie" 
-			placeholder="Saisi dateSortie"  
+			placeholder="YYYY-MM-DD format"  
 			class="form-control validate"
 			value="${jeux.dateSortie}" required />
 		</div>		
