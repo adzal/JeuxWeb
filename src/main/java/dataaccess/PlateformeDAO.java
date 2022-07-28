@@ -113,4 +113,32 @@ public class PlateformeDAO {
 			p.execute();
 		}
 	}
+
+	public static List<Plateforme> getJeuxPlateformes(int jeuxId) throws SQLException {
+		List<Plateforme> PlateformeList = new ArrayList<>();
+		String q = "select p.Plateforme_Id, p.plateforme_nom, p.plateforme_description, "
+				+ "(select count(*) from jeuxplateforme jp where jp.jeux_id=? and p.plateforme_id=jp.plateforme_id) as checked "
+				+ "from plateforme p";
+
+		try (Connection connection = ConnectionFactory.getInstance().getConnection();
+				PreparedStatement p = connection.prepareStatement(q)) {
+			p.setInt(1, jeuxId);
+			try (ResultSet rs = p.executeQuery()) {
+
+				// iterate through the java resultset
+				while (rs.next()) {
+					Plateforme Plateforme = new Plateforme();
+
+					Plateforme.setPlateformeId(rs.getInt("Plateforme_Id"));
+					Plateforme.setNom(rs.getString("plateforme_nom"));
+					Plateforme.setDescription(rs.getString("Plateforme_description"));
+					Plateforme.setChecked(rs.getBoolean("checked"));
+
+					PlateformeList.add(Plateforme);
+				}
+			}
+		}
+
+		return PlateformeList;
+	}
 }

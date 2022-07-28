@@ -3,12 +3,12 @@ package routing;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.time.LocalDate;
 import java.util.List;
 
 import dataaccess.GenreDAO;
 import dataaccess.JeuxDAO;
+import dataaccess.PlateformeDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -43,10 +43,10 @@ public class GamePage extends HttpServlet {
 			List<Genre> genres = GenreDAO.getAllGenres();
 			request.setAttribute("genres", genres);
 			Jeux jeux = JeuxDAO.getJeuxbyJeuxId(Integer.parseInt(jeuxId));
-
 			HttpSession session = request.getSession();
 			session.setAttribute("jeux", jeux);
-
+			session.setAttribute("plateformes", PlateformeDAO.getJeuxPlateformes(jeux.getJeuxId()));
+			
 			getServletContext().getRequestDispatcher("/WEB-INF/gamepage.jsp").forward(request, response);
 		} catch (Exception e) {
 			getServletContext().getRequestDispatcher("/error.jsp").forward(request, response);
@@ -59,9 +59,7 @@ public class GamePage extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
 		HttpSession session = request.getSession();
-
 		Jeux jeux = (Jeux) session.getAttribute("jeux");
 
 		jeux.setTitre(request.getParameter("titre"));
@@ -97,7 +95,7 @@ public class GamePage extends HttpServlet {
 				message = "There was an error.";
 			}
 		}
-		session.setAttribute("Jeux", jeux);
+		request.setAttribute("Jeux", jeux);
 		request.setAttribute("message", message);
 		getServletContext().getRequestDispatcher("/WEB-INF/gamepage.jsp").forward(request, response);
 	}

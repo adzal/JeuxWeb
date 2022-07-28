@@ -4,6 +4,7 @@ public class Plateforme {
 	private int plateformeId;
 	private String nom;
 	private String description;
+	private boolean checked;
 
 	public int getPlateformeId() {
 		return plateformeId;
@@ -34,4 +35,11 @@ public class Plateforme {
 		return "Plateforme [plateformeId=" + plateformeId + ", nom=" + nom + ", description=" + description + "]";
 	}
 
+	public boolean isChecked() {
+		return checked;
+	}
+
+	public void setChecked(boolean checked) {
+		this.checked = checked;
+	}
 }
