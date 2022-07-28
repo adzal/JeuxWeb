@@ -71,7 +71,7 @@
 						<td><a href="GamePage?jeuxId=${game.jeuxId}">${game.titre}</a></td>
 						<td>${game.description}</td>
 						<td><a href="NewGenre?genreId=${game.genreId}">${game.genreDescription}</a></td>
-						<td><a href="NewPlateforme?plateformeId=${game.plateformeId}">${game.plateformeNom}</a></td>
+						<td><a href="NewPlateformes?plateformeId=${game.plateformeId}">${game.plateformeNom}</a></td>
 					</tr>
 				</c:forEach>
 			</tbody>

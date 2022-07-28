@@ -5,6 +5,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import model.Plateforme;
 
 import java.io.IOException;
@@ -47,8 +48,9 @@ public class NewPlateformes extends HttpServlet {
 				message = "oops";
 			}
 		}
-		// Put plateforme in the request for the next page
-		request.setAttribute("plateforme", plateforme);
+		HttpSession session = request.getSession();
+		// Put plateforme in the session for the next page
+		session.setAttribute("plateforme", plateforme);
 		request.setAttribute("message", message);
 		getServletContext().getRequestDispatcher("/WEB-INF/newplateforme.jsp").forward(request, response);
 	}
@@ -60,7 +62,8 @@ public class NewPlateformes extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String message = "";
-		Plateforme plateforme = (Plateforme) request.getAttribute("plateforme");
+		HttpSession session = request.getSession();
+		Plateforme plateforme = (Plateforme) session.getAttribute("plateforme");
 		plateforme.setNom(request.getParameter("nom"));
 		plateforme.setDescription(request.getParameter("description"));
 
@@ -78,7 +81,7 @@ public class NewPlateformes extends HttpServlet {
 		}
 
 		request.setAttribute("message", message);
-		request.setAttribute("plateforme", plateforme);
+		session.setAttribute("plateforme", plateforme);
 		getServletContext().getRequestDispatcher("/WEB-INF/newplateforme.jsp").forward(request, response);
 	}
 }

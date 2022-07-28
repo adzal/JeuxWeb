@@ -88,14 +88,15 @@ public class GenreDAO {
 		}
 	}
 
-	public static Genre getGenreById(int parseInt) throws SQLException {
+	public static Genre getGenreById(int genreId) throws SQLException {
 		String q = "SELECT Genre_Id, genre_titre, genre_description "
-				+ "FROM Genre";
+				+ "FROM Genre where Genre_Id=?";
 		Genre genre = new Genre();
 
 		try (Connection connection = ConnectionFactory.getInstance().getConnection();
 				PreparedStatement p = connection.prepareStatement(q)) {
-
+			p.setInt(1, genreId);
+			
 			// execute the query, and get a java resultset
 			try (ResultSet rs = p.executeQuery()) {
 

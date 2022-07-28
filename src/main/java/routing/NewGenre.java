@@ -9,6 +9,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import model.Genre;
 
 /**
@@ -46,8 +47,9 @@ public class NewGenre extends HttpServlet {
 		}
 
 		request.setAttribute("message", message);
-		// Put genre in the request for the next page		
-		request.setAttribute("genre", genre);
+		HttpSession session = request.getSession();
+		// Put genre in the request for the next page
+		session.setAttribute("genre", genre);
 		getServletContext().getRequestDispatcher("/WEB-INF/newgenre.jsp").forward(request, response);
 	}
 
@@ -57,8 +59,9 @@ public class NewGenre extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		HttpSession session = request.getSession();
 		String message = "";
-		Genre genre = new Genre();
+		Genre genre = (Genre) session.getAttribute("genre");
 		genre.setTitre(request.getParameter("titre"));
 		genre.setDescription(request.getParameter("description"));
 
@@ -76,7 +79,7 @@ public class NewGenre extends HttpServlet {
 		}
 
 		request.setAttribute("message", message);
-		request.setAttribute("genre", genre);
+		session.setAttribute("genre", genre);
 		getServletContext().getRequestDispatcher("/WEB-INF/newgenre.jsp").forward(request, response);
 	}
 }
