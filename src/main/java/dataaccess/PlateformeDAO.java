@@ -98,7 +98,7 @@ public class PlateformeDAO {
 		}
 	}
 
-	public void updatePlateforme(Plateforme Plateforme) throws SQLException {
+	public static void updatePlateforme(Plateforme Plateforme) throws SQLException {
 		String q = "update Plateforme set plateforme_nom = ?,"
 				+ "plateforme_description=? "
 				+ "where Plateforme_id = ?";

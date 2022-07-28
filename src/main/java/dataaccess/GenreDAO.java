@@ -39,13 +39,17 @@ public class GenreDAO {
 		return GenreList;
 	}
 
-	public void updateTitreById(int GenreId, String newTitre) throws SQLException {
-		String q = "update Genre set Genre_titre = ? where Genre_id = ?";
+	public static void updateGenre(Genre genre) throws SQLException {
+		String q = "update Genre "
+				+ "set Genre_titre = ?,"
+				+ "genre_description=? "
+				+ "where Genre_id = ?";
 
 		try (Connection connection = ConnectionFactory.getInstance().getConnection();
 				PreparedStatement p = connection.prepareStatement(q)) {
-			p.setString(1, newTitre);
-			p.setInt(2, GenreId);
+			p.setString(1, genre.getTitre());
+			p.setString(2, genre.getDescription());
+			p.setInt(3, genre.getGenreId());
 
 			p.execute();
 		}
@@ -82,5 +86,30 @@ public class GenreDAO {
 			p.setInt(1, GenreId);
 			p.execute();
 		}
+	}
+
+	public static Genre getGenreById(int parseInt) throws SQLException {
+		String q = "SELECT Genre_Id, genre_titre, genre_description "
+				+ "FROM Genre";
+		Genre genre = new Genre();
+
+		try (Connection connection = ConnectionFactory.getInstance().getConnection();
+				PreparedStatement p = connection.prepareStatement(q)) {
+
+			// execute the query, and get a java resultset
+			try (ResultSet rs = p.executeQuery()) {
+
+				// iterate through the java resultset
+				while (rs.next()) {
+
+					genre.setGenreId(rs.getInt("Genre_Id"));
+					genre.setTitre(rs.getString("Genre_titre"));
+					genre.setDescription(rs.getString("Genre_description"));
+					break;
+				}
+			}
+		}
+
+		return genre;
 	}
 }

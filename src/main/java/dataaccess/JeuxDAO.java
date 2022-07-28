@@ -49,7 +49,7 @@ public class JeuxDAO {
 		String q = "SELECT jeux.Jeux_Id,Jeux_Titre,Jeux_Description,Jeux_Prix,Jeux_DateSortie,"
 				+ "Jeux_PaysOrigine,Jeux_Connexion,Jeux_Mode,jeux.Genre_Id, "
 				+ "genre.genre_description,"
-				+ "plateforme.plateforme_nom  "
+				+ "plateforme.plateforme_nom, plateforme.Plateforme_Id "
 				+ "FROM jeux "
 				+ "inner join genre on genre.genre_id = jeux.genre_id "
 				+ "inner join jeuxplateforme on jeux.Jeux_Id = jeuxplateforme.Jeux_Id "
@@ -93,6 +93,7 @@ public class JeuxDAO {
 					jeux.setGenreId(rs.getInt("genre_id"));
 					jeux.setGenreDescription(rs.getString("genre_description"));
 					jeux.setPlateformeNom(rs.getString("plateforme_nom"));
+					jeux.setPlateformeId(rs.getInt("plateforme_id"));
 
 					jeuxList.add(jeux);
 				}

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import dataaccess.GenreDAO;
+import dataaccess.PlateformeDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -30,8 +31,22 @@ public class NewGenre extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		Genre genre = new Genre();
+		String message = "";
+		String genreId = request.getParameter("genreId");
+		Genre genre = null;
 
+		if (genreId == null) {
+			genre = new Genre();
+		} else {
+			try {
+				genre = GenreDAO.getGenreById(Integer.parseInt(genreId));
+			} catch (Exception e) {
+				message = "oops";
+			}
+		}
+
+		request.setAttribute("message", message);
+		// Put genre in the request for the next page		
 		request.setAttribute("genre", genre);
 		getServletContext().getRequestDispatcher("/WEB-INF/newgenre.jsp").forward(request, response);
 	}
@@ -48,14 +63,19 @@ public class NewGenre extends HttpServlet {
 		genre.setDescription(request.getParameter("description"));
 
 		try {
-			GenreDAO.insertGenre(genre);
-			message="Genre created";
+			if (genre.getGenreId() > 0) {
+				// already exists so do an update
+				GenreDAO.updateGenre(genre);
+				message = "Genre updated";
+			} else {
+				GenreDAO.insertGenre(genre);
+				message = "Genre created";
+			}
 		} catch (SQLException e) {
 			message = "Enter a new title.";
 		}
 
 		request.setAttribute("message", message);
-
 		request.setAttribute("genre", genre);
 		getServletContext().getRequestDispatcher("/WEB-INF/newgenre.jsp").forward(request, response);
 	}
