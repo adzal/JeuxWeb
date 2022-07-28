@@ -6,7 +6,7 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Bootstrap CSS -->
-<!-- <link rel="stylesheet" href="style.css" type="text/css" media="screen" /> -->
+<link rel="stylesheet" href="style.css" type="text/css" media="screen" />
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -14,37 +14,37 @@
 	crossorigin="anonymous">
 
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Page jeux</title>
 </head>
 <body>
 
 
 <div class="container bg-dark text-white">	
-<h2>Game Page</h2>
+<h2 class="titre">Jeux vidéos</h2>
 <c:if test="${not empty message}">
 <p class="invalid">${message}</p>
 </c:if>
 
   <form action="GamePage" method="post">
   	<div class="row align-items-center">
-		<div class="col-12 col-md-3">Titre</div>
-		<div class="col-12 col-md-9">
+		<div class="col-12 col-md-4">Titre</div>
+		<div class="col-12 col-md-8">
 		<input type="text" class="form-control" id="titre"
 			placeholder="Saisi titre" name="titre"
 			value="${jeux.titre}" required />
 		</div>
 	</div>
  	<div class="row align-items-center">
-		<div class="col-12 col-md-3">Description</div>
-		<div class="col-12 col-md-9">	
+		<div class="col-12 col-md-4">Description</div>
+		<div class="col-12 col-md-8">	
 		<input type="text" class="form-control" id="description"
 			placeholder="Saisi description" name="description" 
 			value="${jeux.description}" required />
 		</div>
 	</div>
   	<div class="row align-items-center">
-		<div class="col-12 col-md-3">Prix</div>
-		<div class="col-12 col-md-9">	
+		<div class="col-12 col-md-4">Prix</div>
+		<div class="col-12 col-md-8">	
 		<input type="text" id="prix" name="prix" 
 			placeholder="Saisi prix"  
 			class="form-control validate"
@@ -53,8 +53,8 @@
 	</div>
 	
 	<div class="row align-items-center">
-		<div class="col-12 col-md-3">dateSortie</div>
-		<div class="col-12 col-md-9">	
+		<div class="col-12 col-md-4">Date de sortie</div>
+		<div class="col-12 col-md-8">	
 		<input type="text" id="dateSortie" name="dateSortie" 
 			placeholder="Saisi dateSortie"  
 			class="form-control validate"
@@ -62,8 +62,8 @@
 		</div>		
 	</div>
   	<div class="row align-items-center">
-		<div class="col-12 col-md-3">paysOrigine</div>
-		<div class="col-12 col-md-9">	
+		<div class="col-12 col-md-4">Pays d'origine</div>
+		<div class="col-12 col-md-8">	
 		<input type="text" id="paysOrigine" name="paysOrigine" 
 			placeholder="Saisi paysOrigine"  
 			class="form-control validate"
@@ -72,8 +72,8 @@
 	</div>
   
   <div class="row align-items-center">
-		<div class="col-12 col-md-3">connexion</div>
-		<div class="col-12 col-md-9">	
+		<div class="col-12 col-md-4">Connexion</div>
+		<div class="col-12 col-md-8">	
 		<input type="text" id="connexion" name="connexion" 
 			placeholder="Saisi connexion"  
 			class="form-control validate"
@@ -81,8 +81,8 @@
 		</div>		
 	</div>
   	<div class="row align-items-center">
-		<div class="col-12 col-md-3">mode</div>
-		<div class="col-12 col-md-9">	
+		<div class="col-12 col-md-4">Mode</div>
+		<div class="col-12 col-md-8">	
 		<input type="text" id="mode" name="mode" 
 			placeholder="Saisi mode"  
 			class="form-control validate"
@@ -91,8 +91,8 @@
 	</div>
 
 	<div class="row align-items-center">
-		<div class="col-12 col-md-3">Genre</div>
-		<div class="col-12 col-md-9">	
+		<div class="col-12 col-md-4">Genre</div>
+		<div class="col-12 col-md-8">	
 			<select name="genres" id="genres">
 			<c:forEach var="genre" items="${genres}">
 				<option value="${genre.genreId}"
@@ -106,8 +106,8 @@
 	</div>		
 	
 	<div class="row align-items-center">
-		<div class="col-12 col-md-3">Plateformes</div>
-		<div class="col-12 col-md-9">	
+		<div class="col-12 col-md-4">Plateformes</div>
+		<div class="col-12 col-md-8">	
 		<fieldset>
 			<c:forEach var="plateforme" items="${plateformes}">		 
 		      <input type="checkbox" id="scales${plateforme.plateformeId}" name="scales${plateforme.plateformeId}"
@@ -122,8 +122,11 @@
 	</div>	
 
    	<div class="row align-items-center">
-		<div class="col-12 col-md-9 offset-md-3">		
-			<button type="sumbit" class="btn btn-primary mt-3">Update Game</button>
+		<div class="col-12 col-md-4 offset-md-3">		
+			<button type="submit" class="btn btn-primary mt-3">Modifier</button>
+		</div>
+		<div class="col-12 col-md-5">		
+			<a class="btn btn-primary mt-3" href="ListJeux">Retour</a>
 		</div>
 	</div>
 	

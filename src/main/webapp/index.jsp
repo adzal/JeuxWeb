@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,12 +10,17 @@
 	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
 	crossorigin="anonymous">
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Accueil JeuxWeb</title>
 </head>
 <body>
-<div class="container bg-dark text-white" id="show">
-<h1>Hello</h1>
-<a href="ListJeux">List all games</a>
-</div>
+	<div class="alignimg">
+		<div class="container bg-dark text-white" id="show">
+			<h1 class="titre">Bienvenue sur JeuxWeb</h1>
+			<a href="ListJeux">Cliquez-ici pour afficher la liste des jeux</a>
+				
+				</div>
+				<img alt="rien" src="gl.png">
+			</div>	
+	
 </body>
 </html>
