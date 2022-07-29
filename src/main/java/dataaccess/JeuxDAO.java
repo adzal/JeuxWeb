@@ -160,6 +160,7 @@ public class JeuxDAO {
 				+ "jeux_paysorigine=?,"
 				+ "jeux_connexion=?,"
 				+ "jeux_mode=?, "
+				+ "jeux_prix=?, "
 				+ "genre_id=? "
 				+ "where jeux_id = ?";
 
@@ -170,8 +171,9 @@ public class JeuxDAO {
 			p.setString(3, jeux.getPaysOrigine());
 			p.setString(4, jeux.getConnexion());
 			p.setString(5, jeux.getJeuxMode());
-			p.setInt(6, jeux.getGenreId());
-			p.setInt(7, jeux.getJeuxId());
+			p.setDouble(6, jeux.getPrix());
+			p.setInt(7, jeux.getGenreId());
+			p.setInt(8, jeux.getJeuxId());
 
 			p.execute();
 		}
