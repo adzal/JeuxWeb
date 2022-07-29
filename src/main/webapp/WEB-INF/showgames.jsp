@@ -16,7 +16,7 @@
 
 
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Liste jeux</title>
 </head>
 <body>
 
@@ -35,7 +35,7 @@
 					</c:if>
 					>${genre.description}</option>			
 				</c:forEach>
-				<option value="new">Ajouter une genre</option>
+				<option value="new">Ajouter un genre</option>
 			</select> 
 			
 			<label for="plateformes">Choisir une plateforme : </label>
@@ -56,7 +56,7 @@
 					
 	</div>
 	<div class="row">
-		<a href="GamePage">Create new game</a>
+		<a href="GamePage"class="btn btn-primary mt-3">Create new game</a>
 	</div>
 	<div class="row">
 		<table>
@@ -71,10 +71,10 @@
 			<tbody>
 				<c:forEach var="game" items="${games}">
 					<tr>
-						<td><a href="GamePage?jeuxId=${game.jeuxId}">${game.titre}</a></td>
-						<td>${game.description}</td>
-						<td><a href="NewGenre?genreId=${game.genreId}">${game.genreDescription}</a></td>
-						<td><a href="NewPlateformes?plateformeId=${game.plateformeId}">${game.plateformeNom}</a></td>
+						<td><a class="colorlist" href="GamePage?jeuxId=${game.jeuxId}">${game.titre}</a></td>
+						<td class="colorlist">${game.description}</td>
+						<td><a class="colorlist" href="NewGenre?genreId=${game.genreId}">${game.genreDescription}</a></td>
+						<td><a class="colorlist" href="NewPlateformes?plateformeId=${game.plateformeId}">${game.plateformeNom}</a></td>
 					</tr>
 				</c:forEach>
 			</tbody>

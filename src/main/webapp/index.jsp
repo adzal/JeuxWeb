@@ -16,7 +16,7 @@
 	<div class="alignimg">
 		<div class="container bg-dark text-white" id="show">
 			<h1 class="titre">Bienvenue sur JeuxWeb</h1>
-			<a href="ListJeux">Cliquez-ici pour afficher la liste des jeux</a>
+			<a class="btn btn-primary mt-3" id="colorlien" href="ListJeux">Cliquez-ici pour afficher la liste des jeux</a>
 				
 				</div>
 				<img alt="rien" src="gl.png">

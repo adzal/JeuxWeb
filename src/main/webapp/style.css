@@ -5,6 +5,20 @@ body    {
       background-repeat:repeat-y;
       background-size: 100%;
 }
+.colorlist	{
+	color:chartreuse;
+}
+.colorlist:hover	{
+		color:white !important;
+}
+.btn-primary	{
+	background-color:chartreuse !important;
+	border-color:chartreuse !important;
+	color:black !important;
+}
+
+
+
 
 .container    {
 	padding-bottom:1.2em;
