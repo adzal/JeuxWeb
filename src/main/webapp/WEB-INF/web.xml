@@ -7,7 +7,7 @@
     <servlet-class>routing.ListJeux</servlet-class>
   </servlet>
   <error-page>
-    <location>/error.html</location>
+    <location>/error.jsp</location>
   </error-page>
   <servlet-mapping>
     <servlet-name>ListJeux</servlet-name>
